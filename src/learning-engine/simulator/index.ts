@@ -1,0 +1,10 @@
+export { StudentSimulator, createRng, defaultProfile } from "./StudentSimulator";
+export type { SimulatedStudentProfile, SimulatedAnswer } from "./StudentSimulator";
+export { ScenarioLibrary } from "./ScenarioLibrary";
+export type { Scenario, ScenarioStep, Difficulty } from "./ScenarioLibrary";
+export { ScenarioRunner } from "./ScenarioRunner";
+export type { ScenarioResult } from "./ScenarioRunner";
+export { Metrics, revisionScore } from "./Metrics";
+export type { StepSnapshot, FinalMetrics } from "./Metrics";
+export { ReportGenerator } from "./ReportGenerator";
+export type { SimulationReport } from "./ReportGenerator";
