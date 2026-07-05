@@ -22,7 +22,7 @@ export interface QuizSubmission {
  * Orchestrates the quiz submission pipeline:
  * 1. Save QuestionAttempt
  * 2. Load StudentConceptState
- * 3. Reduce with StudentStateEngine.update(...)
+ * 3. Reduce with StudentStateEngine.updateStudentState(...)
  * 4. Save updated state
  * 5. Return updated state
  */
@@ -60,7 +60,7 @@ export async function submitQuizAnswer(
     difficulty: input.difficulty ?? null,
     timestamp,
   };
-  const next = StudentStateEngine.update(prev, event);
+  const next = StudentStateEngine.updateStudentState(prev, event);
 
   // 4. Persist
   await StudentStateRepository.save(next);
