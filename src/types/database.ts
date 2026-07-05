@@ -54,6 +54,20 @@ export interface QuestionAttempt {
   created_at: string;
 }
 
+export interface StudentConceptStateRow {
+  student_id: string;
+  concept_id: string;
+  mastery: number;
+  confidence: number;
+  learning_gain: number;
+  revision_due: boolean;
+  revision_at: string | null;
+  attempts: number;
+  correct_attempts: number;
+  last_attempt_at: string | null;
+  updated_at: string;
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -61,26 +75,31 @@ export interface Database {
         Row: UserRole;
         Insert: Omit<UserRole, "id"> & { id?: string };
         Update: Partial<UserRole>;
+        Relationships: [];
       };
       subjects: {
         Row: Subject;
         Insert: Omit<Subject, "id"> & { id?: string };
         Update: Partial<Subject>;
+        Relationships: [];
       };
       chapters: {
         Row: Chapter;
         Insert: Omit<Chapter, "id"> & { id?: string };
         Update: Partial<Chapter>;
+        Relationships: [];
       };
       concepts: {
         Row: Concept;
         Insert: Omit<Concept, "id"> & { id?: string };
         Update: Partial<Concept>;
+        Relationships: [];
       };
       questions: {
         Row: Question;
         Insert: Omit<Question, "id"> & { id?: string };
         Update: Partial<Question>;
+        Relationships: [];
       };
       question_attempts: {
         Row: QuestionAttempt;
@@ -89,7 +108,23 @@ export interface Database {
           created_at?: string;
         };
         Update: Partial<QuestionAttempt>;
+        Relationships: [];
+      };
+      student_concept_state: {
+        Row: StudentConceptStateRow;
+        Insert: Partial<StudentConceptStateRow> &
+          Pick<StudentConceptStateRow, "student_id" | "concept_id">;
+        Update: Partial<StudentConceptStateRow>;
+        Relationships: [];
       };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: {
+      app_role: AppRole;
+    };
+    CompositeTypes: Record<string, never>;
   };
 }
+
+

@@ -167,3 +167,44 @@ drop policy if exists "Students insert own attempts" on public.question_attempts
 create policy "Students insert own attempts" on public.question_attempts
   for insert to authenticated
   with check (auth.uid() = student_id);
+
+-- =========================================================
+-- 5. Student concept state (persisted engine output)
+-- =========================================================
+create table if not exists public.student_concept_state (
+  student_id uuid not null references auth.users(id) on delete cascade,
+  concept_id uuid not null references public.concepts(id) on delete cascade,
+  mastery double precision not null default 0,
+  confidence double precision not null default 0,
+  learning_gain double precision not null default 0,
+  revision_due boolean not null default false,
+  revision_at timestamptz,
+  attempts integer not null default 0,
+  correct_attempts integer not null default 0,
+  last_attempt_at timestamptz,
+  updated_at timestamptz not null default now(),
+  primary key (student_id, concept_id)
+);
+
+grant select, insert, update on public.student_concept_state to authenticated;
+grant all on public.student_concept_state to service_role;
+
+alter table public.student_concept_state enable row level security;
+
+drop policy if exists "Students read own state" on public.student_concept_state;
+create policy "Students read own state" on public.student_concept_state
+  for select to authenticated
+  using (auth.uid() = student_id
+    or public.has_role(auth.uid(), 'teacher')
+    or public.has_role(auth.uid(), 'admin'));
+
+drop policy if exists "Students upsert own state" on public.student_concept_state;
+create policy "Students upsert own state" on public.student_concept_state
+  for insert to authenticated
+  with check (auth.uid() = student_id);
+
+drop policy if exists "Students update own state" on public.student_concept_state;
+create policy "Students update own state" on public.student_concept_state
+  for update to authenticated
+  using (auth.uid() = student_id)
+  with check (auth.uid() = student_id);
