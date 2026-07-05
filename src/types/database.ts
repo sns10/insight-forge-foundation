@@ -54,6 +54,20 @@ export interface QuestionAttempt {
   created_at: string;
 }
 
+export interface StudentConceptStateRow {
+  student_id: string;
+  concept_id: string;
+  mastery: number;
+  confidence: number;
+  learning_gain: number;
+  revision_due: boolean;
+  revision_at: string | null;
+  attempts: number;
+  correct_attempts: number;
+  last_attempt_at: string | null;
+  updated_at: string;
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -90,6 +104,13 @@ export interface Database {
         };
         Update: Partial<QuestionAttempt>;
       };
+      student_concept_state: {
+        Row: StudentConceptStateRow;
+        Insert: Partial<StudentConceptStateRow> &
+          Pick<StudentConceptStateRow, "student_id" | "concept_id">;
+        Update: Partial<StudentConceptStateRow>;
+      };
     };
   };
 }
+
