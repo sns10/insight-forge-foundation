@@ -75,26 +75,31 @@ export interface Database {
         Row: UserRole;
         Insert: Omit<UserRole, "id"> & { id?: string };
         Update: Partial<UserRole>;
+        Relationships: [];
       };
       subjects: {
         Row: Subject;
         Insert: Omit<Subject, "id"> & { id?: string };
         Update: Partial<Subject>;
+        Relationships: [];
       };
       chapters: {
         Row: Chapter;
         Insert: Omit<Chapter, "id"> & { id?: string };
         Update: Partial<Chapter>;
+        Relationships: [];
       };
       concepts: {
         Row: Concept;
         Insert: Omit<Concept, "id"> & { id?: string };
         Update: Partial<Concept>;
+        Relationships: [];
       };
       questions: {
         Row: Question;
         Insert: Omit<Question, "id"> & { id?: string };
         Update: Partial<Question>;
+        Relationships: [];
       };
       question_attempts: {
         Row: QuestionAttempt;
@@ -103,14 +108,23 @@ export interface Database {
           created_at?: string;
         };
         Update: Partial<QuestionAttempt>;
+        Relationships: [];
       };
       student_concept_state: {
         Row: StudentConceptStateRow;
         Insert: Partial<StudentConceptStateRow> &
           Pick<StudentConceptStateRow, "student_id" | "concept_id">;
         Update: Partial<StudentConceptStateRow>;
+        Relationships: [];
       };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: {
+      app_role: AppRole;
+    };
+    CompositeTypes: Record<string, never>;
   };
 }
+
 
