@@ -37,21 +37,24 @@ export class StudentStateRepository {
 
   static async save(state: StudentConceptState): Promise<StudentConceptState> {
     const { error } = await supabase.from("student_concept_state").upsert(
-      {
-        student_id: state.studentId,
-        concept_id: state.conceptId,
-        mastery: state.mastery,
-        confidence: state.confidence,
-        learning_gain: state.learningGain,
-        revision_due: state.revisionDue,
-        revision_at: state.revisionAt,
-        attempts: state.attempts,
-        correct_attempts: state.correctAttempts,
-        last_attempt_at: state.lastAttemptAt,
-        updated_at: state.updatedAt,
-      },
+      [
+        {
+          student_id: state.studentId,
+          concept_id: state.conceptId,
+          mastery: state.mastery,
+          confidence: state.confidence,
+          learning_gain: state.learningGain,
+          revision_due: state.revisionDue,
+          revision_at: state.revisionAt,
+          attempts: state.attempts,
+          correct_attempts: state.correctAttempts,
+          last_attempt_at: state.lastAttemptAt,
+          updated_at: state.updatedAt,
+        },
+      ],
       { onConflict: "student_id,concept_id" },
     );
+
     if (error) throw error;
     return state;
   }
