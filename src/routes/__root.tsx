@@ -84,6 +84,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "A personalized learning platform for students." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Learning Intelligence System" },
+      { name: "twitter:description", content: "A personalized learning platform for students." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/59fb759e-832d-4664-89a5-258542c37a25/id-preview-fe893f8f--561bdd25-7d82-43e3-befc-0f99b622436f.lovable.app-1783241888078.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/59fb759e-832d-4664-89a5-258542c37a25/id-preview-fe893f8f--561bdd25-7d82-43e3-befc-0f99b622436f.lovable.app-1783241888078.png" },
     ],
     links: [
       {
