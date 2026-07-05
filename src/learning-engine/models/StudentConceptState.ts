@@ -1,18 +1,3 @@
-// Pure domain models for the Learning Engine.
-// No React, no Supabase, no I/O.
-
-export interface LearningEvent {
-  studentId: string;
-  conceptId: string;
-  questionId: string;
-  correct: boolean;
-  responseTimeMs: number;
-  attemptNumber: number;
-  hintUsed: boolean;
-  difficulty?: "easy" | "medium" | "hard" | string | null;
-  timestamp: string; // ISO
-}
-
 export interface StudentConceptState {
   studentId: string;
   conceptId: string;

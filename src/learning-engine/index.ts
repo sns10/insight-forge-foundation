@@ -1,6 +1,6 @@
-export * from "./models";
-export { MasteryCalculator } from "./MasteryCalculator";
-export { ConfidenceCalculator } from "./ConfidenceCalculator";
-export { LearningGainCalculator } from "./LearningGainCalculator";
-export { RevisionCalculator } from "./RevisionCalculator";
-export { StudentStateEngine } from "./StudentStateEngine";
+export type { LearningEvent } from "./models/LearningEvent";
+export {
+  initialConceptState,
+  type StudentConceptState,
+} from "./models/StudentConceptState";
+export { StudentStateEngine } from "./engine/StudentStateEngine";

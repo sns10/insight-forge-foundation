@@ -1,7 +1,8 @@
-import type { StudentConceptState } from "./models";
+import type { StudentConceptState } from "../models/StudentConceptState";
 
 /**
  * Learning gain = change in mastery from prior state to next state.
+ * Clamped to [-1, 1]. Pure.
  */
 export class LearningGainCalculator {
   static compute(prev: StudentConceptState, nextMastery: number): number {

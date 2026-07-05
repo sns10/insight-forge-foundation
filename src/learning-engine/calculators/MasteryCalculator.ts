@@ -1,8 +1,10 @@
-import type { LearningEvent, StudentConceptState } from "./models";
+import type { LearningEvent } from "../models/LearningEvent";
+import type { StudentConceptState } from "../models/StudentConceptState";
+import { clamp01 } from "./utils";
 
 /**
  * Exponential moving average of correctness, weighted by difficulty
- * and penalized by hint usage.
+ * and penalized by hint usage. Pure.
  */
 export class MasteryCalculator {
   static readonly ALPHA = 0.3;
@@ -20,15 +22,10 @@ export class MasteryCalculator {
   }
 
   static compute(prev: StudentConceptState, event: LearningEvent): number {
-    const weight = this.difficultyWeight(event.difficulty);
+    const weight = MasteryCalculator.difficultyWeight(event.difficulty);
     const hintPenalty = event.hintUsed ? 0.5 : 1;
-    const signal = event.correct ? 1 * weight * hintPenalty : 0;
-    const next = (1 - this.ALPHA) * prev.mastery + this.ALPHA * signal;
+    const signal = event.correct ? weight * hintPenalty : 0;
+    const next = (1 - MasteryCalculator.ALPHA) * prev.mastery + MasteryCalculator.ALPHA * signal;
     return clamp01(next);
   }
-}
-
-function clamp01(n: number): number {
-  if (Number.isNaN(n)) return 0;
-  return Math.max(0, Math.min(1, n));
 }
